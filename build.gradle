@@ -1,0 +1,61 @@
+plugins {
+    id 'org.springframework.boot' version '3.2.4'
+//    id 'io.spring.dependency-management' version '1.1.6'
+    id 'java'
+}
+
+group = 'ru.test'
+version = '1.0-SNAPSHOT'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+// Equivalent to <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation platform('org.springframework.boot:spring-boot-dependencies:3.2.4')
+
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.xerial:sqlite-jdbc:3.50.3.0'
+//    implementation 'org.hibernate.orm:hibernate-core:7.3.0.Final'
+    implementation 'org.hibernate.orm:hibernate-community-dialects:6.4.4.Final'
+
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+}
+
+task npmInstall(type: Exec) {
+    workingDir 'src/svaceapi-viewer'
+    if (System.getProperty('os.name').toLowerCase().contains('windows')) {
+        commandLine 'npm.cmd', 'install'
+    } else {
+        commandLine 'npm', 'install'
+    }
+}
+
+// 2. Build Svelte app
+task npmBuild(type: Exec) {
+    dependsOn npmInstall
+    workingDir 'src/svaceapi-viewer'
+    if (System.getProperty('os.name').toLowerCase().contains('windows')) {
+        commandLine 'npm.cmd', 'run', 'build'
+    } else {
+        commandLine 'npm', 'run', 'build'
+    }
+}
+
+processResources.dependsOn npmBuild
+processResources {
+    from("src/svaceapi-viewer/dist") {
+        into "static"
+    }
+}
