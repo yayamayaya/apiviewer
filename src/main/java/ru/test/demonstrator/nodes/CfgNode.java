@@ -1,8 +1,8 @@
 package ru.test.demonstrator.nodes;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import jakarta.persistence.*;
-import ru.test.demonstrator.CFG;
 
 @Entity
 @Table(name = "NODES")
@@ -16,7 +16,9 @@ import ru.test.demonstrator.CFG;
 public class CfgNode {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     Integer id;
 
     public CfgNode() {}

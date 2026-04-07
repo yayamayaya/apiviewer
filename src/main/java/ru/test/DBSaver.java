@@ -21,14 +21,14 @@ public class DBSaver {
         String instr6[] = {"env!inst'annotate"};
 
         CfgNode nodes[] = {
-                new EntryNode(0, 1),
-                new BlockNode(1, 2, 0, instr1),
-                new SplitNode(2, 1, new Integer[] {3, 4}),
-                new BlockNode(3, 5, 2, instr3),
-                new BlockNode(4, 5, 2, instr4),
-                new JoinNode(5, new Integer[] {3, 4}, 6),
-                new BlockNode(6, 7, 5, instr6),
-                new EndNode(7, 6),
+                new EntryNode(0, 2),
+                new BlockNode(1, 3, 1, instr1),
+                new SplitNode(2, 2, new Integer[] {4, 5}),
+                new BlockNode(3, 6, 3, instr3),
+                new BlockNode(4, 6, 3, instr4),
+                new JoinNode(5, new Integer[] {4, 5}, 7),
+                new BlockNode(6, 8, 6, instr6),
+                new EndNode(7, 7),
         };
 
         return new CFG(nodes);

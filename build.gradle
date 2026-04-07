@@ -1,6 +1,5 @@
 plugins {
     id 'org.springframework.boot' version '3.2.4'
-//    id 'io.spring.dependency-management' version '1.1.6'
     id 'java'
 }
 
@@ -12,7 +11,6 @@ java {
     targetCompatibility = JavaVersion.VERSION_21
 }
 
-// Equivalent to <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
 }
@@ -27,7 +25,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.xerial:sqlite-jdbc:3.50.3.0'
-//    implementation 'org.hibernate.orm:hibernate-core:7.3.0.Final'
     implementation 'org.hibernate.orm:hibernate-community-dialects:6.4.4.Final'
 
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
@@ -42,7 +39,6 @@ task npmInstall(type: Exec) {
     }
 }
 
-// 2. Build Svelte app
 task npmBuild(type: Exec) {
     dependsOn npmInstall
     workingDir 'src/svaceapi-viewer'
